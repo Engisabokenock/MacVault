@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111522">
+  <title>MacVault | Personal Vault</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-icon">M</div>
+        <div>
+          <h2>MacVault</h2>
+          <span>PERSONAL VAULT</span>
+        </div>
+      </div>
+
+      <div class="sidebar-label">WORKSPACE</div>
+
+      <nav>
+        <button class="nav-item active" data-view="all">
+          <span>▦</span> All Items
+          <span class="nav-count" id="allCount">0</span>
+        </button>
+
+        <button class="nav-item" data-view="password">
+          <span>🔑</span> Passwords
+        </button>
+
+        <button class="nav-item" data-view="note">
+          <span>▤</span> Secure Notes
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="security-card">
+          <span class="security-icon">🛡️</span>
+          <h4>Your personal vault</h4>
+          <p>A simple space to organize your saved information.</p>
+        </div>
+
+        <button id="themeToggle" class="theme-toggle">
+          ☀️ Switch to light mode
+        </button>
+
+        <div class="profile">
+          <div class="avatar">E</div>
+          <div>
+            <strong>My Workspace</strong>
+            <span>Personal account</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+
+      <header class="topbar">
+        <div>
+          <p class="breadcrumb">WORKSPACE / <span id="currentSection">ALL ITEMS</span></p>
+          <h1 id="pageTitle">All Items</h1>
+        </div>
+
+        <button class="add-button" id="addButton">
+          + New Item
+        </button>
+      </header>
+
+      <section class="welcome-card">
+        <div>
+          <span class="welcome-label">YOUR DIGITAL SPACE</span>
+          <h2>Everything organized.<br>Everything accessible.</h2>
+          <p>Keep your saved entries and personal notes organized in one place.</p>
+        </div>
+        <div class="welcome-art">🔐</div>
+      </section>
+
+      <section class="overview">
+        <div class="overview-card">
+          <div class="overview-icon purple">▦</div>
+          <div>
+            <p>Total Items</p>
+            <h3 id="totalCount">0</h3>
+          </div>
+        </div>
+
+        <div class="overview-card">
+          <div class="overview-icon blue">🔑</div>
+          <div>
+            <p>Passwords</p>
+            <h3 id="passwordCount">0</h3>
+          </div>
+        </div>
+
+        <div class="overview-card">
+          <div class="overview-icon green">▤</div>
+          <div>
+            <p>Secure Notes</p>
+            <h3 id="noteCount">0</h3>
+          </div>
+        </div>
+      </section>
+
+      <section class="vault-section">
+
+        <div class="section-heading">
+          <div>
+            <h2 id="listTitle">Your Items</h2>
+            <p>Manage and organize your saved entries.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-box">
+            <span>⌕</span>
+            <input type="search" id="searchInput" placeholder="Search your vault...">
+          </div>
+
+          <select id="sortSelect">
+            <option value="newest">Recently added</option>
+            <option value="oldest">Oldest first</option>
+            <option value="alphabetical">Alphabetical</option>
+          </select>
+        </div>
+
+        <div id="vaultList" class="vault-list"></div>
+
+        <div id="emptyState" class="empty-state">
+          <div>🔐</div>
+          <h3>Your vault is empty</h3>
+          <p>Add your first password or personal note to get started.</p>
+          <button class="add-button" id="emptyAddButton">+ Add your first item</button>
+        </div>
+
+      </section>
+
+      <footer>
+        <span>MacVault © 2026</span>
+        <span>Personal information organizer</span>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+
+      <div class="modal-header">
+        <div>
+          <span class="modal-label">YOUR PERSONAL VAULT</span>
+          <h2 id="modalTitle">Add New Item</h2>
+        </div>
+        <button id="closeModal" class="close-button">×</button>
+      </div>
+
+      <form id="itemForm">
+
+        <label for="itemType">Item Type</label>
+        <select id="itemType">
+          <option value="password">Password</option>
+          <option value="note">Secure Note</option>
+        </select>
+
+        <label for="itemTitle">Title</label>
+        <input id="itemTitle" type="text" placeholder="e.g. GitHub Account" maxlength="80" required>
+
+        <div id="passwordFields">
+          <label for="itemUsername">Username / Email</label>
+          <input id="itemUsername" type="text" placeholder="Enter username or email">
+
+          <label for="itemPassword">Password</label>
+          <div class="password-input">
+            <input id="itemPassword" type="password" placeholder="Enter password">
+            <button type="button" id="toggleInputPassword">Show</button>
+          </div>
+
+          <button type="button" id="generatePassword" class="generate-button">
+            ✨ Generate strong password
+          </button>
+
+          <label for="itemWebsite">Website</label>
+          <input id="itemWebsite" type="text" placeholder="https://example.com">
+        </div>
+
+        <div id="noteFields" class="hidden">
+          <label for="itemContent">Note Content</label>
+          <textarea id="itemContent" rows="5" placeholder="Write your personal note..."></textarea>
+        </div>
+
+        <label for="itemCategory">Category</label>
+        <select id="itemCategory">
+          <option value="Personal">Personal</option>
+          <option value="Work">Work</option>
+          <option value="Development">Development</option>
+          <option value="Finance">Finance</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <div class="modal-actions">
+          <button type="button" id="cancelButton" class="cancel-button">Cancel</button>
+          <button type="submit" class="save-button">Save Item</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
